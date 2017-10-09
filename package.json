@@ -1,0 +1,35 @@
+{
+  "name": "baduba",
+  "description": "Build tool for conditional composing file tree.",
+  "version": "0.0.2",
+  "author": "Alex Rozhik <a.rozhik@gmail.com>",
+  "main": "baduba.js",
+  "keywords": [
+    "mkdir",
+    "watch",
+    "watchFile",
+    "watcher",
+    "watching"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rozhik/baduba"
+  },
+  "scripts": {},
+  "dependencies": {
+    "chokidar": "^1.7.0",
+    "debug": "^3.1.0",
+    "extend": "^3.0.1",
+    "fs-extra": "^4.0.2",
+    "js-yaml": "^3.10.0",
+    "minimatch": "^3.0.4",
+    "minimist": "0.0.8",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "mock-fs": "^3.7.0",
+    "tap": "^5.4.2"
+  },
+  "bin": "bin/cmd.js",
+  "license": "MIT"
+}
