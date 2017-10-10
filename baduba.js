@@ -30,11 +30,11 @@ var bd = {
     dstFolder: null, //Target dir root
     arrow: [], //Arrow of config file with priorities
     engines: { //Engines definition name->f( cb, dstFile, srcFile, globalOpts, localOpts )
-      'copy': engineCopy  
+      'copy': engineCopy
     },
 
     isRunning: false, //Is run already called
-    scanReady: false, //Does initial dir tree scan cmpleted. 
+    scanReady: false, //Does initial dir tree scan cmpleted.
     chokidarWatcher: null, //Watcher class
     globalOpts: {}, //Global options
 
@@ -78,7 +78,7 @@ function makeArrow(arrrowName) {
     var arrowTemplate = {
         folder: false, // Root folder or false if not applied
         filemap: {}, // File map srcFile->dstFile
-        opts: {}, // Options for templates etc 
+        opts: {}, // Options for templates etc
         real: {}, //Real existing files fileName->{path:,stat}
         virtual: {}, //Virtual files fileName->{engine:,opt:}
     }
@@ -107,10 +107,10 @@ function readArrow() {
             //Empty doc folders is allowed
         }
         if (doc.virtual) { //Handling virtual files
-            if( !doc.folder ) throw Error('Virtual not allowed without folder for '+bd.arrow[i]);
             for (var vf in doc.virtual) {
+                if( !doc.folder ) throw Error('Virtual not allowed without folder for '+bd.arrow[i]);
                 doc.virtual[vf].arrow = bd.arrow[i]; // Set arrow name for virtual
-                doc.virtual[vf].templateFile = resolve( doc.folder+'/'+doc.virtual[vf].template )
+                doc.virtual[vf].file = resolve( /*doc.folder+'/'+*/doc.virtual[vf].template )
                 var f = findArrow(doc.folder + '/' + vf, bd.pathHash);
                 dbg('find '+ doc.folder + '/' + vf,doc.virtual[vf],f)
                 invalidate(f, {}) //fdef, stat
@@ -144,7 +144,7 @@ function onFileAdd(name, stat) {
     var f = findArrow(name, bd.pathHash);
     debug('onFileAdd', name, f);
     if (!f.arrow && bd.scanReady)
-        return; //Cleanup dest only for dest at starup 
+        return; //Cleanup dest only for dest at starup
     var cl = checkMasks(name, f.arrow)
     if (!cl.ok)
         return; //Just ignore file does not match masks
@@ -160,7 +160,7 @@ function onFileModify(name, stat) {
     var f = findArrow(name, bd.pathHash);
     debug('onFileModify', name, f);
     if (!f.arrow && bd.scanReady)
-        return; //Cleanup dest only for dest at starup 
+        return; //Cleanup dest only for dest at starup
     var cl = checkMasks(name, f.arrow)
     if (!cl.ok)
         return; //Just ignore file does not match masks
@@ -176,7 +176,7 @@ function onFileRemove(name) {
     var f = findArrow(name, bd.pathHash);
     debug('onFileRemove', name, f);
     if (!f.arrow && bd.scanReady)
-        return; //Cleanup dest only for dest at starup 
+        return; //Cleanup dest only for dest at starup
     var cl = checkMasks(name, f.arrow)
     if (!cl.ok)
         return; //Just ignore file does not match masks

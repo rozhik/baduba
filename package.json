@@ -1,7 +1,7 @@
 {
   "name": "baduba",
   "description": "Build tool for conditional composing file tree.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Alex Rozhik <a.rozhik@gmail.com>",
   "main": "baduba.js",
   "keywords": [
