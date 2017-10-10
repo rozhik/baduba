@@ -24,12 +24,15 @@
     "js-yaml": "^3.10.0",
     "minimatch": "^3.0.4",
     "minimist": "0.0.8",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "mock-fs": "^3.7.0",
     "tap": "^5.4.2"
   },
-  "bin": "bin/cmd.js",
+  "bin": {
+    "baduba-cli": "./bin/baduba-cli.js"
+  },
   "license": "MIT"
 }

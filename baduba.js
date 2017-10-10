@@ -12,7 +12,6 @@ var chokidar = require("chokidar");
 var minimatch = require("minimatch");
 var yaml = require('js-yaml');
 var fs = require('fs-extra');
-var Tree = require('./tree');
 var nextTick = require('process').nextTick;
 
 
@@ -30,7 +29,9 @@ var bd = {
     srcFolder: null, //Soure dirrectory root
     dstFolder: null, //Target dir root
     arrow: [], //Arrow of config file with priorities
-    engines: {}, //Engines definition name->f( cb, dstFile, srcFile, globalOpts, localOpts )
+    engines: { //Engines definition name->f( cb, dstFile, srcFile, globalOpts, localOpts )
+      'copy': engineCopy  
+    },
 
     isRunning: false, //Is run already called
     scanReady: false, //Does initial dir tree scan cmpleted. 
@@ -301,7 +302,7 @@ function runTask(task) {
             var fDef = bd.arr[ arrow ].real[ task ];
             todo = {
                 arrow: arrow,
-                engine: 'cp',
+                engine: 'copy',
                 file: fDef.def.k + '/' + fDef.def.r
             }
         }
@@ -346,3 +347,6 @@ function prepareFile(target, cb) {
             })
 }
 
+function engineCopy(cb, dstFile, srcFile, globalOpts, localOpts) {
+    fs.copy(srcFile, dstFile, cb)
+}
